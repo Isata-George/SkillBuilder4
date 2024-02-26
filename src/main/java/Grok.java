@@ -8,7 +8,7 @@
  */
 public class Grok
 {
-    private static final int DEFAULT_POWER_LEVEL=50;
+    private static final int DEFAULT_POWER_LEVEL= 50;
     private static final int MAX_POWER_LEVEL = 100;
 
     // instance variables
@@ -31,6 +31,7 @@ public class Grok
     public Grok(int powerLevel)
     {
         setPowerLevel(powerLevel);
+
     }
 
     // accessor methods
@@ -44,9 +45,15 @@ public class Grok
         return powerLevel;
     }
 
-    public boolean isDead()
-    {
-        // TODO: replace this line with your code here
+    public boolean isDead() {
+        if(powerLevel == DEFAULT_POWER_LEVEL){
+            isAlive = true;
+            return false;
+        }
+        if(powerLevel <= 0){
+            isAlive = false;
+        }
+        return true;
     }
 
     // mutator methods
@@ -57,7 +64,11 @@ public class Grok
      */
     public void setPowerLevel(int powerLevel)
     {
-        this.powerLevel = powerLevel;
+        if(isDead()){
+            this.powerLevel = 0;
+        } else {
+            this.powerLevel = powerLevel;
+        }
     }
 
     /*
@@ -66,18 +77,26 @@ public class Grok
      * @param pill The PowerPill that the this Grok.  The power
      * of the pill is added to the power level of this Grok.
      */
-    public void takePowerPill(PowerPill pill)
-    {
-        setPowerLevel(powerLevel + pill.getPower());
+    public void takePowerPill(PowerPill pill) {
+
+        if(isDead()){
+            setPowerLevel(0);
+        } else {
+            setPowerLevel(powerLevel + pill.getPower());
+        }
     }
 
     /*
      * Invoked when this Grok takes a hit.  The power level of
      * this Grok is reduced by 5.
      */
-    public void tookHit()
-    {
-        setPowerLevel(powerLevel - 5);
+    public void tookHit() {
+
+        if(isDead()){
+            setPowerLevel(0);
+        } else {
+            setPowerLevel(powerLevel - 5);
+        }
     }
 
     //================== Do Not Touch Code Below this line =============================
